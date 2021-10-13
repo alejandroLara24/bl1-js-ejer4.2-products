@@ -34,23 +34,38 @@ class Controller {
                 if (!confirmacionStock) {
                     return
                 }
+                this.changeProductStock({id: prodId, units: -product.units})
             }
         } else {
             return
         }
-
+        try {
         this.store.delProduct(prodId)
+        } catch (err) {
+            this.view.renderErrorMessage(err)
+        }
+        const totalImport = this.store.totalImport()
         this.view.renderDelProduct(prodId)
-        
+        this.view.renderStoreImport(totalImport)
     }
 
     changeProductInStore(formData) {
+        try {
+            const productoModificado = this.store.changeProduct(formData)
+            const totalImport = this.store.totalImport()
+            this.view.renderEditProduct(productoModificado)
+            this.view.renderStoreImport(totalImport)
+        } catch (err) {
+            this.view.renderErrorMessage(err)
+        }
     }
 
     changeProductStock(formData) {
         try {
             const product = this.store.changeProductUnits(formData)
+            const totalImport = this.store.totalImport()
             this.view.renderEditProduct(product)
+            this.view.renderStoreImport(totalImport)
         } catch (err) {
             this.view.renderErrorMessage(err)
         }

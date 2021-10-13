@@ -1,8 +1,8 @@
 const divMessagesUI = document.getElementById('messages');
-const tbodyProductos = document.getElementById('mostrar-prod')
 
 class View{
     renderNewProduct(product) {
+        const tbodyProductos = document.querySelector('div#almacen tbody')
         const newTableRow = document.createElement('tr')
         newTableRow.id = product.id
         newTableRow.innerHTML = `
@@ -17,20 +17,20 @@ class View{
 
     renderEditProduct(product) {
         const tableRow = document.getElementById(product.id)
+        tableRow.children[1].textContent = product.name
         tableRow.children[2].textContent = product.units
-        tableRow.children[4].textContent = product.productImport() + ' €'
+        tableRow.children[3].textContent = product.price + ' €'
+        tableRow.children[4].textContent = product.productImport().toFixed(2) + ' €'
     }
 
     renderDelProduct(id) {
         const tableRow = document.getElementById(id)
-        const tableRowTotal = document.getElementById('total')
-        let importe = tableRow.children[4]
-        let importeTotal = tableRowTotal.textContent()
-        tableRowTotal.textContent = importeTotal - importe
         tableRow.remove()
     }
 
     renderStoreImport(total) {
+        const tableRow = document.getElementById('total')
+        tableRow.textContent = total.toFixed(2) + ' €'
     }
 
     renderErrorMessage(message) {
