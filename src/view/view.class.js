@@ -1,13 +1,33 @@
 const divMessagesUI = document.getElementById('messages');
+const tbodyProductos = document.getElementById('mostrar-prod')
 
 class View{
     renderNewProduct(product) {
+        const newTableRow = document.createElement('tr')
+        newTableRow.id = product.id
+        newTableRow.innerHTML = `
+            <th>${product.id}</th>
+            <th>${product.name}</th>
+            <th>${product.units}</th>
+            <th>${product.price} €</th>
+            <th>${product.productImport()}</th>
+            <th></th>`
+        tbodyProductos.appendChild(newTableRow)
     }
 
     renderEditProduct(product) {
+        const tableRow = document.getElementById(product.id)
+        tableRow.children[2].textContent = product.units
+        tableRow.children[4].textContent = product.productImport() + ' €'
     }
 
     renderDelProduct(id) {
+        const tableRow = document.getElementById(id)
+        const tableRowTotal = document.getElementById('total')
+        let importe = tableRow.children[4]
+        let importeTotal = tableRowTotal.textContent()
+        tableRowTotal.textContent = importeTotal - importe
+        tableRow.remove()
     }
 
     renderStoreImport(total) {
