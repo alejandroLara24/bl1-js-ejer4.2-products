@@ -27,6 +27,28 @@ window.addEventListener('load', () => {
     // ) 
   })
 
+  document.getElementById('mod-prod').addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    // Aquí el código para obtener los datos del formulario
+    const id = parseInt(document.getElementById('prod-id').value)
+    const name = document.getElementById('prod-name').value
+    const price = parseFloat(document.getElementById('prod-price').value)
+    const units = parseInt(document.getElementById('stockprod-units').value)
+
+    // Aquí llamamos a la función del controlador que añade productos (addProductToStore)
+    // pasándole como parámetro esos datos
+    myController.changeProductInStore({id, name, price, units})
+    // Sintaxis de ES2015 que equivale a 
+    //
+    // myController.addProductToStore(
+    //   { 
+    //     name: name,
+    //     price: price 
+    //   }
+    // ) 
+  })
+
   document.getElementById('del-prod').addEventListener('submit', (event) => {
     event.preventDefault()
 
